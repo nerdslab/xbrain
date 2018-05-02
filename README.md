@@ -11,15 +11,13 @@ Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
 ## Workflow Architecture
 
 - **Creating Sub-Volumes for Automated Segmentation**
-The input to this workflow is TIFF file stack in grayscale. The first step is to create an HDF5 file with a dataset configured to correspond the entire 3D volume. The 3D volume/dataset then is divided into several overlapping subarrays to be pixel classified by the next step. Each subarray is saved into an HDF5 file. 
-This step should be run on a set of networked servers to speed up the processing.
+The input to this workflow is a stack of grayscale TIFFs. The first step is to create an HDF5 file with a dataset configured to correspond the entire 3D volume. The 3D volume/dataset then is divided into several overlapping subarrays to be pixel classified by the next step. Each subarray is saved into an HDF5 file. 
 
 - **Automated Segmentation with Parallelized Ilastik**
 In this step, Ilastik pixel classification process is run on each subarray. Input to each Ilastik classifier process is the trained data file and a subarray/sub-volume file from previous step. Ilastik classifier creates K probability maps and K is the number of annotated voxel classes/types in the trained data file. Then each pixel in the probability map is assigned to the class with the highest probability value. Output from this step is an HDF5 file with K subarray/sub-volume datasets for each input subarray file. This step should be run on a set of networked servers to speed up the processing.
 
 - **Merging of overlapping sub-volumes**
 In this step, the K subarrays in sub-volume files are combined to create K arrays for the volume. 
-This step should be run on a set of networked servers to speed up the processing.
 
 ----------------------------------------------------
 ## How to Run the Pipeline to Segment a Large Dataset
