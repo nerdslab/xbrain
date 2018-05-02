@@ -74,5 +74,5 @@ mpirun –np 4 python combine_segmented_subvols.py
 
 ### Contributors:
 - Mehdi Tondravi, Advanced Photon Source, Argonne National Laboratory
-- Eva Dyer, Georgia Institute of Technology ([@evadyer](@evadyer), [@nerdslab](@nerdslab))
+- Eva Dyer, Georgia Institute of Technology ([Lab Website](http://www.dyerlab.gatech.edu))
 
