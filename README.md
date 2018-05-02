@@ -7,6 +7,7 @@ __Dyer, Eva L., et al. "Quantifying mesoscale neuroanatomy using X-ray microtomo
 If you use any of the code or datasets in this repo, please cite this paper. 
 Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
 
+----------------------------------------------------
 ## Workflow Architecture
 ----------------------------------------------------
 **1. Creating Sub-Volumes for Automated Segmentation**
@@ -24,6 +25,7 @@ This step should be run on a set of networked servers to speed up the processing
 In this step, the K subarrays in sub-volume files are combined to create K arrays for the volume. 
 This step should be run on a set of networked servers to speed up the processing.
 
+----------------------------------------------------
 ## How to Run the Pipeline to Segment a Large Dataset
 ----------------------------------------------------
 
@@ -50,7 +52,7 @@ source activate ilastik-devel
 
 **2. Activate Python environment**
 ```
-source activate Ilastik-devel*
+source activate ilastik-devel
 ```
 
 **3. Convert TIFF stack into a 3D volume array (must use one python process)**
@@ -60,7 +62,7 @@ mpirun –np 1 python tiff_to_hdf5_mpi.py
 
 **4. Create sub-volume files (must use one python process)**
 ```
-mpirun –np 1 python make_subvolume_mpi.py*
+mpirun –np 1 python make_subvolume_mpi.py
 ```
 
 **5. Segment sub-volume files created in previous step assuming 12 python processes (you can change the number of processes to match your architecture).**
