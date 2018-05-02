@@ -1,5 +1,4 @@
 # xbrain-bigdata
-----------------------------------------------------
 This repository contains methods for _segmenting large 3D image volumes_. You can find further details about how we apply the methods in this repo to analyze mm-scale brain volumes in the following paper:
 
 __Dyer, Eva L., et al. "Quantifying mesoscale neuroanatomy using X-ray microtomography." eNeuro, [eneuro.org/content/4/5/ENEURO.0195-17.2017](http://www.eneuro.org/content/4/5/ENEURO.0195-17.2017) (2017).__
@@ -8,8 +7,9 @@ If you use any of the code or datasets in this repo, please cite this paper.
 Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
 
 ----------------------------------------------------
+
 ## Workflow Architecture
-----------------------------------------------------
+
 - **Creating Sub-Volumes for Automated Segmentation**
 The input to this workflow is TIFF file stack in grayscale. The first step is to create an HDF5 file with a dataset configured to correspond the entire 3D volume. The 3D volume/dataset then is divided into several overlapping subarrays to be pixel classified by the next step. Each subarray is saved into an HDF5 file. 
 This step should be run on a set of networked servers to speed up the processing.
@@ -23,7 +23,6 @@ This step should be run on a set of networked servers to speed up the processing
 
 ----------------------------------------------------
 ## How to Run the Pipeline to Segment a Large Dataset
-----------------------------------------------------
 
 ### Step 0. Train a pixel classifier in Ilastik
 Before running the pipeline, you must first train a Pixel Classifier in Ilastik ([ilastik.org](http://www.ilastik.org)) to find the objects that you are interested in segmenting. Please check out their [tutorial](http://ilastik.org/documentation/pixelclassification/pixelclassification) on how to train a classifier with ilastik. Once you are done training the classifier, make note of the path to your .ilp file, you will need it later.
