@@ -8,9 +8,6 @@ If you use any of the code or datasets in this repo, please cite this paper.
 Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
 
 ## Workflow Architecture
----------------------
-**This workflow consists of the following processing steps:**
-
 **1. Creating Sub-Volumes for Automated Segmentation**
 
 The input to this workflow is TIFF file stack in grayscale. The first step is to create an HDF5 file with a dataset configured to correspond the entire 3D volume. The 3D volume/dataset then is divided into several overlapping subarrays to be pixel classified by the next step. Each subarray is saved into an HDF5 file. 
@@ -49,32 +46,32 @@ source activate ilastik-devel
 
 ## Step 2. Running the pipeline
 
-### 1. Edit file “seg_user_param.py” to specify the sub-volume dimensions (Z, Y & X pixels), the input TIFF stack directory and the Ilastik trained file location.
+**1. Edit file “seg_user_param.py” to specify the sub-volume dimensions (Z, Y & X pixels), the input TIFF stack directory and the Ilastik trained file location.
 
-### 2. Activate Python environment
+**2. Activate Python environment
 
 ```
 source activate Ilastik-devel*
 ```
 
-### 3. Convert TIFF stack into a 3D volume array (must use one python process)
+**3. Convert TIFF stack into a 3D volume array (must use one python process)
 ```
 mpirun –np 1 python tiff_to_hdf5_mpi.py
 ```
 
-### 4. Create sub-volume files (must use one python process)
+**4. Create sub-volume files (must use one python process)
 
 ```
 mpirun –np 1 python make_subvolume_mpi.py*
 ```
 
-### 5. Segment sub-volume files created in previous step assuming 12 python processes (you can change the number of processes to match your architecture).
+**5. Segment sub-volume files created in previous step assuming 12 python processes (you can change the number of processes to match your architecture).
 
 ```
 mpirun –np 12 python segment_subvols_pixels.py
 ```
 
-### 6. Combine sub-volumes into volume (must use one python process)
+**6. Combine sub-volumes into volume (must use one python process)
 ```
 mpirun –np 4 python combine_segmented_subvols.py
 ```
