@@ -66,7 +66,7 @@ mpirun –np 12 python segment_subvols_pixels.py
 
 **5. Combine sub-volumes into volume (must use one python process)**
 ```
-mpirun –np 4 python combine_segmented_subvols.py
+mpirun –np 1 python combine_segmented_subvols.py
 ```
 
 
