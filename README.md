@@ -17,7 +17,7 @@ This step should be run on a set of networked servers to speed up the processing
 - **Automated Segmentation with Parallelized Ilastik**
 In this step, Ilastik pixel classification process is run on each subarray. Input to each Ilastik classifier process is the trained data file and a subarray/sub-volume file from previous step. Ilastik classifier creates K probability maps and K is the number of annotated voxel classes/types in the trained data file. Then each pixel in the probability map is assigned to the class with the highest probability value. Output from this step is an HDF5 file with K subarray/sub-volume datasets for each input subarray file. This step should be run on a set of networked servers to speed up the processing.
 
-- **3. Merging of overlapping sub-volumes**
+- **Merging of overlapping sub-volumes**
 In this step, the K subarrays in sub-volume files are combined to create K arrays for the volume. 
 This step should be run on a set of networked servers to speed up the processing.
 
