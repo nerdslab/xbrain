@@ -68,3 +68,11 @@ mpirun –np 12 python segment_subvols_pixels.py
 ```
 mpirun –np 4 python combine_segmented_subvols.py
 ```
+
+
+----------------------------------------------------
+
+### Contributors:
+- Mehdi Tondravi, Advanced Photon Source, Argonne National Laboratory
+- Eva Dyer, Georgia Institute of Technology ([@evadyer](@evadyer), [@nerdslab](@nerdslab))
+
