@@ -1,45 +1,43 @@
-#Workflow for segmentation of Terabyte sized 3D Datasets
+# xbrain-bigdata
 
+This repository contains methods for _analyzing and quantifying neuroanatomy in X-ray microtomography images_ on large datasets. You can find further details about how we apply the methods in this repo to analyze mm-scale brain volumes in the following paper:
 
-## Workflow Description
---------------------
-3D imaging of brain at single-neuron resolution generates Terabyte sized datasets. In follow-on analysis, it is essential to go beyond a 3D density image to segment out features of interest (such as blood vessels, cells, and axons in the example of brains).
+__Dyer, Eva L., et al. "Quantifying mesoscale neuroanatomy using X-ray microtomography." eNeuro, [eneuro.org/content/4/5/ENEURO.0195-17.2017](http://www.eneuro.org/content/4/5/ENEURO.0195-17.2017) (2017).__
 
-Scripts in this folder contains a parallel processing workflow for segmenting large/Terabyte sized datasets based on Ilastik Pixel Classification Workflow.
+If you use any of the code or datasets in this repo, please cite this paper. 
+Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
 
 ## Workflow Architecture
 ---------------------
 **This workflow consists of the following processing steps:**
 
-**\1. Creating Sub-Volumes for Automated Segmentation**
+**1. Creating Sub-Volumes for Automated Segmentation**
 
 The input to this workflow is TIFF file stack in grayscale. The first step is to create an HDF5 file with a dataset configured to correspond the entire 3D volume. The 3D volume/dataset then is divided into several overlapping subarrays to be pixel classified by the next step. Each subarray is saved into an HDF5 file. 
 This step should be run on a set of networked servers to speed up the processing.
 
-**\2. Automated Segmentation with Parallelized Ilastik**
+**2. Automated Segmentation with Parallelized Ilastik**
 
 In this step, Ilastik pixel classification process is run on each subarray. Input to each Ilastik classifier process is the trained data file and a subarray/sub-volume file from previous step. Ilastik classifier creates K probability maps and K is the number of annotated voxel classes/types in the trained data file. Then each pixel in the probability map is assigned to the class with the highest probability value. Output from this step is an HDF5 file with K subarray/sub-volume datasets for each input subarray file.
 This step should be run on a set of networked servers to speed up the processing.
 
-**\3. Merging of overlapping sub-volumes**
+**3. Merging of overlapping sub-volumes**
 
 In this step, the K subarrays in sub-volume files are combined to create K arrays for the volume. 
 This step should be run on a set of networked servers to speed up the processing.
 
 
+## Step 0. Train a pixel classifier in Ilastik
+----------------------------------------------------
+Before running the pipeline, you must first train a Pixel Classifier in Ilastik ([ilastik.org](http://www.ilastik.org)) to find the objects that you are interested in segmenting. Please check out their [tutorial](http://ilastik.org/documentation/pixelclassification/pixelclassification) on how to train a classifier with ilastik. Once you are done training the classifier, make note of the path to your .ilp file, you will need it later.
+
+
 ## Step 1. Configuring python environments to run this workflow
 ----------------------------------------------------
 
-To read and write into a common HDF5 file need hdf5 package compiled in “parallel” mode. Ilastik is not built with this option and will be too much effort to build it for parallel HDF5. So, should create the following two python environments and take advantage of the pre-built required Ilastik packages.
+To create sub-volumes for segmentation, run ilastik, and combine segmented sub-volumes into a whole volume file you will need to create the following conda environment (example below will create an environment called "ilastik-devel"). Python modules installed into this environment include h5py, skimage, mpi4py, glob, multiprocessing and psutil.
 
-**\1. Python Environment for making and combining sub-volumes**
-
-This environment should be used when creating sub-volumes for segmentation, and when combining segmented sub-volumes into a whole volume file. Python modules installed into this environment in addition to parallel HDF5 should include h5py, skimage, mpi4py, glob, multiprocessing and psutil.
-
-**\2. Python Environment for Automated Segmentation with Ilastik**
-
-This environment is needed to segment the sub-volume files. Below is a suggestion on how to make this environment assuming the new python environment name is "lastik-devel" :
-
+```
 conda create -n ilastik-devel -c ilastik ilastik-everything-no-solvers
 
 conda install -n ilastik-devel  -c conda-forge ipython
@@ -47,31 +45,36 @@ conda install -n ilastik-devel  -c conda-forge ipython
 conda install -n ilastik-devel -c conda-forge  mpi4py
 
 source activate ilastik-devel
+```
 
+## Step 2. Running the pipeline
 
-## Running the Pipeline
+### 1. Edit file “seg_user_param.py” to specify the sub-volume dimensions (Z, Y & X pixels), the input TIFF stack directory and the Ilastik trained file location.
 
-# Edit file “seg_user_param.py” to specify the sub-volume dimensions (Z, Y & X pixels), the input TIFF stack directory and the Ilastik trained file location.
+### 2. Activate Python environment
 
-# Activate python environment
+```
+source activate Ilastik-devel*
+```
 
-*\1. source activate Ilastik-devel*
+### 3. Convert TIFF stack into a 3D volume array (must use one python process)
+```
+mpirun –np 1 python tiff_to_hdf5_mpi.py
+```
 
-# Convert TIFF stack into a 3D volume array - **must use one python processe.**
+### 4. Create sub-volume files (must use one python process)
 
-*\2. mpirun –np 1 python tiff_to_hdf5_mpi.py*
+```
+mpirun –np 1 python make_subvolume_mpi.py*
+```
 
-# Create sub-volume files - **must use one python processe.**
+### 5. Segment sub-volume files created in previous step assuming 12 python processes (you can change the number of processes to match your architecture).
 
-*\3. mpirun –np 1 python make_subvolume_mpi.py*
+```
+mpirun –np 12 python segment_subvols_pixels.py
+```
 
-# Segment sub-volume files created in previous step assuming 12 python processes on 12 servers.
-
-*\4. mpirun -f $HOSTLIST –np 12 python segment_subvols_pixels.py*
-
-# combine sub-volumes into volume - **must use one python processe.**
-
-*\5. mpirun –np 4 python combine_segmented_subvols.py*
-
-# xbrain-bigdata
-python code for running xbrain on large datasets
+### 6. Combine sub-volumes into volume (must use one python process)
+```
+mpirun –np 4 python combine_segmented_subvols.py
+```
