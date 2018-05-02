@@ -41,12 +41,14 @@ conda install -n ilastik-devel -c conda-forge  mpi4py
 source activate ilastik-devel
 ```
 
+Note: If you have problems running the pipeline using this environment, you can also try to add a different build of mpi4py. Try to use this build instead >> conda install -n ilastik-devel -c intel  mpi4py
+
 ### Step 2. Running the pipeline
 - **Edit file “seg_user_param.py” to specify the sub-volume dimensions (Z, Y & X pixels), the input TIFF stack directory and the Ilastik trained file location.**
 
 **1. Activate Python environment**
 ```
-  source activate ilastik-devel
+source activate ilastik-devel
 ```
 
 **2. Convert TIFF stack into a 3D volume array (must use one python process)**
