@@ -42,7 +42,18 @@ source activate ilastik-devel
 Note: If you have problems running the pipeline using this environment, you can also try to add a different build of mpi4py. Try to use this build instead >> conda install -n ilastik-devel -c intel  mpi4py
 
 ### Step 2. Running the pipeline
-- **Edit the file “seg_user_param.py” to specify the sub-volume dimensions (Z, Y & X pixels), the input TIFF stack directory, and the location of your Ilastik classifier (ilp file).**
+- **Edit the file “seg_user_param.py” to specify the input parameters**
+'''
+The user should specify the following info:
+1) The sub-volume dimensions: il_sub_vol_x (number of slices), il_sub_vol_y (columns) and il_sub_vol_z (rows)
+2) tiff_files_location - the full path to the directory containing TIFF image files.
+3) classifier - the full path to the directory containing the Ilastik trained data file.
+4) Number of threads to be used by an Ilastik classifier python process.
+5) Precentage of available memory in a server to be used by an Ilastik classifier python process.
+6) save_cell_prob_map - save cell probability map? 
+7) save_vessel_prob_map - save vessel probability map?
+8) binary_output - save segmented output in binary?
+'''
 
 - **Activate Python environment**
 ```
