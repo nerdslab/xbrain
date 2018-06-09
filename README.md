@@ -49,26 +49,10 @@ Note: If you have problems running the pipeline using this environment, you can 
 source activate ilastik-devel
 ```
 
-**2. Convert TIFF stack into a 3D volume array (must use one python process)**
+**2. Segment Data**
 ```
-mpirun –np 1 python tiff_to_hdf5_mpi.py
+run_segmentation.sh
 ```
-
-**3. Create sub-volume files (must use one python process)**
-```
-mpirun –np 1 python make_subvolume_mpi.py
-```
-
-**4. Segment sub-volume files created in previous step assuming 12 python processes (you can change the number of processes to match your architecture).**
-```
-mpirun –np 12 python segment_subvols_pixels.py
-```
-
-**5. Combine sub-volumes into volume (must use one python process)**
-```
-mpirun –np 1 python combine_segmented_subvols.py
-```
-
 
 ----------------------------------------------------
 
