@@ -1,4 +1,6 @@
-###########################################################################
+#!/usr/bin/env python 
+
+# #########################################################################
 # Copyright (c) 2015, UChicago Argonne, LLC. All rights reserved.         #
 #                                                                         #
 # Copyright 2015. UChicago Argonne, LLC. This software was produced       #
@@ -122,7 +124,6 @@ def make_subvolume_mpi():
     rank = comm.Get_rank()
     size = MPI.COMM_WORLD.Get_size()
     name = MPI.Get_processor_name()
-    
     start_time = time.time()
     if rank == 0:
         print("*** Time is %d Entered make_subvolume_mpi() and Size is %d****" % (time.time(), size))

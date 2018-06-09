@@ -1,3 +1,5 @@
+#!/usr/bin/env python 
+
 # #########################################################################
 # Copyright (c) 2015, UChicago Argonne, LLC. All rights reserved.         #
 #                                                                         #
@@ -88,13 +90,18 @@ def segment_subvols_pixels():
     size = MPI.COMM_WORLD.Get_size()
     name = MPI.Get_processor_name()
     start_time = int(time.time())
-    # Allow Ilatisk to use all available threads of the server/compute node.
-    threads = int(no_of_threads/1)
-    # Allow Ilastik to use all available memory of the server/compute node.
-    ram = int(ram_size)
-    
-    threads = 12
-    #ram = 36
+    # Determine how many threads to be used by an Ilastik python process.
+    if not no_of_threads_to_use:
+        # Use all available threads
+        threads = no_of_threads
+    else:
+        threads = int(no_of_threads_to_use)
+    # Determine how much memory to be used by an Ilastik python process.
+    if not percent_mem_to_use:
+        # Use all available memory
+        ram = int(ram_size)
+    else:
+        ram = int(ram_size * (int(percent_mem_to_use)/100.0))
     
     # if not enough memory stop processing. Required memory is subvolume size times 4 bytes times
     # number of labeled classed plus two.
@@ -115,18 +122,21 @@ def segment_subvols_pixels():
     
     if rank == 0:
         print("Sub-Volume file location is %s" % outimage_file_location)
-        # Remove sub-volume files from previous run
-        '''
+        # Remove segmented sub-volume files from previous run
         if os.path.exists(outimage_file_location):
             subvolfiles = glob(outimage_file_location + '/subvol*.h5')
             for subfile in subvolfiles:
-                print("*** Removing file ***", subfile)
+                print("*** Removing segmented subvolume file ***", subfile)
                 os.remove(subfile)
-        '''
         # Create the directory for segmented sub-volume images if it does not exist. 
         if not os.path.exists(outimage_file_location):
             print("*** Creating directory %s ***" % outimage_file_location)
             os.mkdir(outimage_file_location)
+        # Remove sub-volume cell & vessel probability map from previous run
+        subvol_probmap_files = glob(hdf_subvol_files_location + '/subarr_prob_map_*.h5')
+        for prob_map_file in subvol_probmap_files:
+            print("**** Removing old subvolume probability map files ****", prob_map_file)
+            os.remove(prob_map_file)
     
     comm.Barrier()
     
@@ -169,16 +179,27 @@ def segment_subvols_pixels():
         print("time to create pixel masks is %d sec and rank is %d" % ((time.time() - mask_time), rank))
         
         segment_time = time.time()
-        create_segmented_subvol(subvol_data, subvol_pixel_masks, dsname, orig_idx_data, rightoverlap_data, leftoverlap_data)
-        print("time to time to segement pixels is %d sec and rank is %d" % ((time.time() - mask_time), rank))
+        # output type - binary or pixel intensity?
+        seg_output = seg_pixel_value()
+        create_segmented_subvol(subvol_data, subvol_pixel_masks, dsname, orig_idx_data, rightoverlap_data, leftoverlap_data, seg_output)
+        save_prob_map_idx = []
         # Save cell probability map in a file if user has asked for it.
-        savemap, label_index = save_prob_map()
+        savemap, label_index = save_prob_map('CELL')
         if savemap == True:
             # Save probability map
+            save_prob_map_idx.append(label_index)
             labeld_obj = get_ilastik_labels()
             print("Saving probability map for object type %s, rank is %d" % (labeld_obj[label_index], rank))
-            save_ilastik_prob_map(probability_maps, label_index, dsname, orig_idx_data,
-                                  rightoverlap_data, leftoverlap_data)
+        # Save vessel probability map in a file if user has asked for it.
+        savemap, label_index = save_prob_map('VESSEL')
+        if savemap == True:
+            # Save probability map
+            save_prob_map_idx.append(label_index)
+            labeld_obj = get_ilastik_labels()
+            print("Saving probability map for object type %s, rank is %d" % (labeld_obj[label_index], rank))
+        if save_prob_map_idx:
+            save_ilastik_prob_map(probability_maps, orig_idx_data, rightoverlap_data, leftoverlap_data, idx, save_prob_map_idx)
+        print("time to time to segement pixels is %d sec and rank is %d" % ((time.time() - segment_time), rank))
     
     end_time = int(time.time())
     exec_time = end_time - start_time

@@ -79,6 +79,9 @@ outimage_file_location = tiff_files_location + '_pixels_maps'
 # Segmented pixel volume directory - contains one hdf5 file with a datasets for each segmented class.
 volume_map_file_location = tiff_files_location + '_volume_prob_maps'
 
+# Post segmentation image volume files.
+post_seg_volume_location = tiff_files_location + '_post_segmentation'
+
 # Dataset name for Ilastik probability map for classified classes.
 ilastik_ds_name = 'exported_data'
 
@@ -86,6 +89,10 @@ no_of_threads = multiprocessing.cpu_count()
 ram_size = int(virtual_memory().total/(1024**3)) * 1000
 
 ilp_file_name = classifier
+
+# small size objects to be removed from cell segmentation
+MINSZ_CELL = 100
+
 import h5py
 import pdb
 
@@ -106,26 +113,36 @@ def get_ilastik_labels():
     return labels
 
 
-def save_prob_map():
+def save_prob_map(label):
     '''
     This function returns whether to save Ilastik cell probability map to file or not.
     '''
     index = 0
     save_to_file = False
-    if save_cell_prob_map.upper() == 'YES':
+    if label == 'CELL':
+        save_class = save_cell_prob_map
+    elif label == 'VESSEL':
+        save_class = save_vessel_prob_map
+    else:
+        return (save_to_file, index)
+    
+    if save_class.upper() == 'YES':
         labels = get_ilastik_labels()
         for item in labels:
-            if 'CELL' in item.upper():
+            if label in item.upper():
                 save_to_file = True
                 index = labels.index(item)
                 break
             
     return (save_to_file, index)
 
-
-
-
-
-
-
+def seg_pixel_value():
+    '''
+    Retuns whether to save segmented pixels in binary or pixel intensity.
+    '''
+    if binary_output.upper() == 'YES':
+        save_binary = True
+    else:
+        save_binary = False
+    return save_binary
 

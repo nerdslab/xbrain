@@ -65,24 +65,23 @@ __copyright__ = "Copyright (c) 2017, UChicago Argonne, LLC."
 __docformat__ = 'restructuredtext en'
 __all__ = ['save_ilastik_prob_map']
 
-def save_ilastik_prob_map(prob_maps, label_index, dsname, orig_idx_data, rightoverlap_data, leftoverlap_data):
+def save_ilastik_prob_map(prob_maps, orig_idx_data, rightoverlap_data, leftoverlap_data, idx, idx_list):
     """ 
     
     Inputs: 
     prob_maps -  Composite sub-volumes image array
-    label_index - index of the labeled class in the Ilastik trained file.
-    dsname - dataset name of the class to save its probability map
     orig_idx_data - whole volume array indices
     rightoverlap_data - number of overlapped pixels from the right side of the sub-volume.
-    leftoverlap_data  - number of overlapped pixels from the left side of the sub-volume. 
-    
+    leftoverlap_data  - number of overlapped pixels from the left side of the sub-volume.
+    idx - file number
+    idx_list - list of indices of object classes to save their probability map
     Ouputs:
     a hdf5 file per sub-volume with a dataset for each defined segmented class.
     """
     
     start_time = time.time()
     ilastik_classes = get_ilastik_labels()
-    prob_map_file = hdf_subvol_files_location + '/subarr_prob_map_' + dsname + '.h5'
+    prob_map_file = hdf_subvol_files_location + '/subarr_prob_map_' + str(idx).zfill(5) + '.h5'
     probfile = h5py.File(prob_map_file, 'w')
     # Save sub-volume indices 
     subvol_indx = probfile.create_dataset('orig_indices', (6,), dtype='uint64')
@@ -92,12 +91,14 @@ def save_ilastik_prob_map(prob_maps, label_index, dsname, orig_idx_data, rightov
     subvol_rightoverlap[...] = rightoverlap_data
     subvol_leftoverlap = probfile.create_dataset('left_overlap', (3,), dtype='uint8')
     subvol_leftoverlap[...] = leftoverlap_data
-    
-    dataset = ilastik_classes[label_index]
-    map_to_save = prob_maps[..., label_index]
-    mapds = probfile.create_dataset(dataset, map_to_save.shape, map_to_save.dtype)
+    print("*** Create subvolume probability map for ****", idx_list)
     write_time = time.time()
-    mapds[...] = map_to_save
+    for label_idx in idx_list:
+        dataset = ilastik_classes[label_idx]
+        map_to_save = prob_maps[..., label_idx]
+        mapds = probfile.create_dataset(dataset, map_to_save.shape, map_to_save.dtype)
+        mapds[...] = map_to_save
+    
     print("dataset write time for one dataset is %d Sec" % (time.time() - write_time))
     probfile.close()
     end_time = time.time()

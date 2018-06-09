@@ -1,3 +1,5 @@
+#!/usr/bin/env python 
+
 # #########################################################################
 # Copyright (c) 2015, UChicago Argonne, LLC. All rights reserved.         #
 #                                                                         #
@@ -74,7 +76,6 @@ def combine_segmented_subvols():
     
     Output: The whole volume image file - its location is specified in the seg_user_param.py file. 
     """
-    print("ENTERED the function segment_subvols()******")
     start_time = time.time()
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
@@ -85,7 +86,7 @@ def combine_segmented_subvols():
     # Get the list of all segmented image files . Assumes file extension is .h5
     input_files = sorted(glob(outimage_file_location + '/*subvol*.h5'))
     if not input_files:
-        print("*** Did not find any file ending with .h5 extension  ***", hdf_subvol_files_location)
+        print("*** Did not find any sub-volume file in %s location ***" % outimage_file_location)
         return
     # Shape/Dimension of the volume image is available in the last sub-volume file.
     volume_ds_shape = np.zeros((3,), dtype='uint64')
@@ -97,7 +98,9 @@ def combine_segmented_subvols():
     volume_ds_shape[1] = volshape[3]
     volume_ds_shape[2] = volshape[5]
     # Get the list of segmented datasets 
-    seg_ds_list = f.keys()
+    seg_ds_list = []
+    for ds in f.keys():
+        seg_ds_list.append(ds)
     if rank == 0:
         print("segmentation DS list is seg_ds_list", seg_ds_list)
     seg_ds_list.remove('orig_indices')
@@ -152,7 +155,7 @@ def combine_segmented_subvols():
                       (rank, len(input_files), size, idx))
                 break
             subvol_file = h5py.File(input_files[rank + (size * idx)], 'r')
-            # Retrieve indices into the whole volume. 
+            # Retrieve indices into the whole volume.
             orig_idx_ds = subvol_file['orig_indices']
             orig_idx = orig_idx_ds[...]
             

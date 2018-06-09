@@ -1,3 +1,5 @@
+#!/usr/bin/env python 
+
 # #########################################################################
 # Copyright (c) 2015, UChicago Argonne, LLC. All rights reserved.         #
 #                                                                         #
@@ -90,11 +92,15 @@ def tiff_to_hdf5_files():
     rank = comm.Get_rank()
     size = MPI.COMM_WORLD.Get_size()
     name = MPI.Get_processor_name()
-    
     start_time = int(time.time())
     files = sorted(glob(tiff_files_location + '/*.tif*'))
     parent_dir, tiff_dir = os.path.split(tiff_files_location)
     hdf_dir = parent_dir + '/' + tiff_dir + '_' + 'mpi' + '_hdf'
+    
+    # if there is no tiff return.
+    if not files:
+        print("**** Did not find any TIFF file, terminating execution ****")
+        return
     
     # Remove all *.hdf5 files from previous runs. Create directory if it does not exist
     if rank == 0:

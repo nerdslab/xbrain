@@ -65,7 +65,7 @@ __copyright__ = "Copyright (c) 2017, UChicago Argonne, LLC."
 __docformat__ = 'restructuredtext en'
 __all__ = ['segment_pixels']
 
-def create_segmented_subvol(subvol_im, pixel_masks, filename, orig_idx_data, rightoverlap_data, leftoverlap_data):
+def create_segmented_subvol(subvol_im, pixel_masks, filename, orig_idx_data, rightoverlap_data, leftoverlap_data, seg_output):
     """ 
     Separates pixels in an input sub-volume image array and creates an hdf5 for each input array.
     Pixel mask for each class defined in the trained data is an input to this script.
@@ -79,7 +79,8 @@ def create_segmented_subvol(subvol_im, pixel_masks, filename, orig_idx_data, rig
     filename - output file name
     orig_idx_data - whole volume array indices
     rightoverlap_data - number of overlapped pixels from the right side of the sub-volume.
-    leftoverlap_data  - number of overlapped pixels from the left side of the sub-volume. 
+    leftoverlap_data  - number of overlapped pixels from the left side of the sub-volume.
+    seg_output - whether or not to save segmented output as binary or pixel intensity.
     
     Ouputs:
     a hdf5 file per sub-volume with a dataset for each defined segmented class.
@@ -102,11 +103,13 @@ def create_segmented_subvol(subvol_im, pixel_masks, filename, orig_idx_data, rig
     for label in range(len(ilastik_classes)):
         seg_im_ds = seg_im_file.create_dataset(ilastik_classes[label], subvol_im.shape, subvol_im.dtype)
         multiply_time = time.time()
-        seg_im_ds[...] = subvol_im * pixel_masks[..., label]
+        if seg_output == True:
+            seg_im_ds[...] = pixel_masks[..., label]
+        else:
+            seg_im_ds[...] = subvol_im * pixel_masks[..., label]
         print("Multiply time for one dataset is %d Sec" % (time.time() - multiply_time))
         
     seg_im_file.close()
     end_time = time.time()
     print("Exec time for create_segmented_subvol is %d Sec" % ((end_time - start_time)))
     return
-
