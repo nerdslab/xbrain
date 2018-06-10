@@ -42,33 +42,28 @@ source activate ilastik-devel
 Note: If you have problems running the pipeline using this environment, you can also try to add a different build of mpi4py. Try to use this build instead >> conda install -n ilastik-devel -c intel  mpi4py
 
 ### Step 2. Running the pipeline
-**0. Edit the file “seg_user_param.py” to specify the sub-volume dimensions (Z, Y & X pixels), the input TIFF stack directory, and the location of your Ilastik classifier (ilp file).**
 
-**1. Activate Python environment**
+*Edit the file “seg_user_param.py” to specify the input parameters*
+
+The user should specify the following info:
+- The sub-volume dimensions: il_sub_vol_x (number of slices), il_sub_vol_y (columns) and il_sub_vol_z (rows)
+- tiff_files_location - the full path to the directory containing TIFF image files
+- classifier - the full path to the directory containing the Ilastik trained data file
+- Number of threads to be used by an Ilastik classifier python process
+- Percentage of available memory in a server to be used by an Ilastik classifier python process
+- save_cell_prob_map - 'yes' if you want to save cell probability map, 'no' otherwise
+- save_vessel_prob_map - 'yes' if you want to save vessel probability map, 'no' otherwise
+- binary_output - 'yes' if you want to save a binary segmented output, 'no' otherwise
+
+*Activate Python environment*
 ```
 source activate ilastik-devel
 ```
 
-**2. Convert TIFF stack into a 3D volume array (must use one python process)**
+*Segment data*
 ```
-mpirun –np 1 python tiff_to_hdf5_mpi.py
+run_segmentation.sh
 ```
-
-**3. Create sub-volume files (must use one python process)**
-```
-mpirun –np 1 python make_subvolume_mpi.py
-```
-
-**4. Segment sub-volume files created in previous step assuming 12 python processes (you can change the number of processes to match your architecture).**
-```
-mpirun –np 12 python segment_subvols_pixels.py
-```
-
-**5. Combine sub-volumes into volume (must use one python process)**
-```
-mpirun –np 1 python combine_segmented_subvols.py
-```
-
 
 ----------------------------------------------------
 
