@@ -62,7 +62,10 @@ source activate ilastik-devel
 
 *Segment data*
 ```
-run_segmentation.sh
+python tiff_to_hdf5_mpi.py
+python make_subvolume_mpi.py
+python segment_subvols_pixels.py
+python combine_segmented_subvols.py
 ```
 
 ----------------------------------------------------
