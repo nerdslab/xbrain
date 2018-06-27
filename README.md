@@ -43,8 +43,7 @@ Note: If you have problems running the pipeline using this environment, you can 
 
 ### Step 2. Running the pipeline
 
-*Edit the file “seg_user_param.py” to specify the input parameters*
-
+(1) *Edit the file “seg_user_param.py” to specify the input parameters*
 The user should specify the following info:
 - The sub-volume dimensions: il_sub_vol_x (number of slices), il_sub_vol_y (columns) and il_sub_vol_z (rows)
 - tiff_files_location - the full path to the directory containing TIFF image files
@@ -55,12 +54,12 @@ The user should specify the following info:
 - save_vessel_prob_map - 'yes' if you want to save vessel probability map, 'no' otherwise
 - binary_output - 'yes' if you want to save a binary segmented output, 'no' otherwise
 
-*Activate Python environment*
+(2) *Activate Python environment*
 ```
 source activate ilastik-devel
 ```
 
-*Segment data*
+(3) *Segment data*
 ```
 python tiff_to_hdf5_mpi.py
 python make_subvolume_mpi.py
