@@ -1,5 +1,5 @@
 # xbrain / data
-This repository contains datasets for _segmenting large 3D brain image volumes_. You can find further details about how we apply the methods in this repo to segment mm-scale brain volumes in the following paper:
+This repository contains X-ray tomography datasets for testing segmentation algorithms. More details about these datasets can be found in this paper: 
 
 __Dyer, Eva L., et al. "Quantifying mesoscale neuroanatomy using X-ray microtomography." eNeuro, [eneuro.org/content/4/5/ENEURO.0195-17.2017](http://www.eneuro.org/content/4/5/ENEURO.0195-17.2017) (2017).__
 
@@ -16,6 +16,5 @@ Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
 ----------------------------------------------------
 
 ### Contributors:
-- Mehdi Tondravi, Advanced Photon Source, Argonne National Laboratory
 - Eva Dyer, Georgia Institute of Technology ([Lab Website](http://dyerlab.gatech.edu))
 
