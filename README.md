@@ -72,5 +72,6 @@ python combine_segmented_subvols.py
 
 ### Contributors:
 - Mehdi Tondravi, Advanced Photon Source, Argonne National Laboratory
+- Will Gray Roncal, Johns Hopkins Applied Physics Lab
 - Eva Dyer, Georgia Institute of Technology ([Lab Website](http://dyerlab.gatech.edu))
 
