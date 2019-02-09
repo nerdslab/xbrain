@@ -11,9 +11,9 @@ __Dyer, Eva L., et al. "Quantifying mesoscale neuroanatomy using X-ray microtomo
 If you have any questions, please contact Eva Dyer at evadyer{at}gatech{dot}edu.
 
 ## Details about image data ##
-* The image data is micro-CT data collected from 2-BM at Argonne National Laboratory.
-* These samples are taken from roughly cubic mm volume of mouse somatosensory cortex (S1). 
-* The spatial resolution is 0.65 um isotropic (each voxel = 0.65x0.65x0.65 um^3)
+* The images provided are micro-computed tomography (microCT) data collected from 2-BM at Argonne National Laboratory.
+* These samples are taken from roughly a cubic mm volume of mouse somatosensory cortex (S1) that spans multiple cortical layers and a small portion of corpus callosum. 
+* The spatial resolution is 0.65 um isotropic (each voxel = 0.65x0.65x0.65 um^3).
 
 ## What's available ##
 * You can download the full dataset from DropBox (13.4 GB) [Full Dataset](https://www.dropbox.com/s/u1z604sgtty5kbh/original_img_data_0pt65microniso.nrrd?dl=0)
