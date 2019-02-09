@@ -6,10 +6,6 @@ __Dyer, Eva L., et al. "Quantifying mesoscale neuroanatomy using X-ray microtomo
 If you use any of the code or datasets in this repo, please cite this paper. 
 Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
 
-----------------------------------------------------
-
-## Datasets
-
 To download the full dataset and/or annotated subvolumes [[Link to Data]](https://github.com/nerdslab/xbrain/tree/master/data)
 
 ----------------------------------------------------
