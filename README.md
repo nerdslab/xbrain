@@ -10,7 +10,7 @@ Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
 
 ## Datasets
 
-To download the full dataset and/or annotated subvolumes [[Link to Data]](https://github.com/nerdslab/xbrain/tree/master/data
+To download the full dataset and/or annotated subvolumes [[Link to Data]](https://github.com/nerdslab/xbrain/tree/master/data)
 
 ----------------------------------------------------
 
