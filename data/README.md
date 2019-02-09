@@ -1,21 +1,28 @@
-# xbrain / data
-This repository contains X-ray tomography datasets for testing segmentation algorithms. More details about these datasets can be found in this paper: 
+# Image Data and Annotated Volumes #
 
-__Dyer, Eva L., et al. "Quantifying mesoscale neuroanatomy using X-ray microtomography." eNeuro, [eneuro.org/content/4/5/ENEURO.0195-17.2017](http://www.eneuro.org/content/4/5/ENEURO.0195-17.2017) (2017).__
+This repo contains manually annotated volumes of 3D X-ray microtomography data. All of the data volumes and annotations are saved as nrrd or nii files, both of which can be opened in Fiji and converted to a wide range of file formats. You can also open nrrd/nii files in Python with the use of the pynrrd package.
 
-If you use any of the code or datasets in this repo, please cite this paper. 
-Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
+***
+If you use any of the datasets contained in this repository, please cite the following preprint:
 
-----------------------------------------------------
+__Dyer, Eva L., et al. "Quantifying mesoscale neuroanatomy using X-ray microtomography." eNeuro, 2017. [Paper](http://www.eneuro.org/content/4/5/ENEURO.0195-17.2017)__
 
-## Datasets
+***
+If you have any questions, please contact Eva Dyer at evadyer{at}gatech{dot}edu.
 
-1. Test dataset (Tiffs) for segmenting axons [[Data]](https://www.dropbox.com/s/llagt23vloleun6/img-data.zip?dl=0)
-2. Test datasets (NumPy) with ground truth [[Data]](https://www.dropbox.com/sh/ea4q6ymx7nyeg17/AAD6lqPcbtKOVb2aouBhcD3wa?dl=0)
-3. Ground truth and images from three subvolumes [Data](https://www.dropbox.com/s/040dsxyg5j165rv/Xbrain-GroundTruth.zip?dl=0)
+## What's available ##
+* Details of the image datasets provided:
+- The image data is micro-CT data collected from 2-BM at Argonne National Laboratory.
+- These samples are taken from roughly cubic mm volume of mouse somatosensory cortex (S1).
+- The spatial resolution is 0.65 um isotropic (each voxel = 0.65x0.65x0.65 um^3)
 
-----------------------------------------------------
+* You can download the full dataset from DropBox (13.4 GB) [Full Dataset](https://www.dropbox.com/s/u1z604sgtty5kbh/original_img_data_0pt65microniso.nrrd?dl=0)
 
-### Contributors:
-- Eva Dyer, Georgia Institute of Technology ([Lab Website](http://dyerlab.gatech.edu))
-
+* The annotated subvolumes are located here [Annotations](https://www.dropbox.com/sh/hu9e6hm2hvfna67/AADtG-ICqkEa0962pVSwrXBua?dl=0)
+- V0, V1, V2, V3 are all different (non-overlapping) subvolumes that were selected within an unsectioned cubic mm volume of mouse cortex.
+- V1 is the largest annotated volume (300 x 300 x 100 pixels) and currently the only volume that we have full (dense) reconstructions of cells and vessels.
+- V0 is a smaller cube in the middle of V1 for which we have two annotations from different annotators (A1 and A2) combined to produce a dense segmentation of cells and blood vessels.
+- V2 can be used as a small test set for cell detection algorithms (dense annotation of cell bodies, some sparse annotations of vessels).
+- V3 was the final held out test set that we used to evaluate our cell detection methods (only cell centroids, not full cell bodies).
+- V4 is a subvolume that is located near the bottom of layer 6 and reveals myelinated axons in the corpus callosum traversing the subvolume.
+***
