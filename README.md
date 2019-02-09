@@ -7,7 +7,11 @@ If you use any of the code or datasets in this repo, please cite this paper.
 Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
 
 ----------------------------------------------------
-If you are interested in downloading the full dataset or annotated subvolumes, check out the /data folder [Data](https://github.com/nerdslab/xbrain/tree/master/data)
+
+## Datasets
+
+To download the full dataset and/or annotated subvolumes [[Link to Data]](https://github.com/nerdslab/xbrain/tree/master/data
+
 ----------------------------------------------------
 
 ## Workflow Architecture
