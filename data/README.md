@@ -12,7 +12,7 @@ Please direct any questions to Eva Dyer at evadyer{at}gatech{dot}edu.
 
 1. Test dataset (Tiffs) for segmenting axons [[Data]](https://www.dropbox.com/s/llagt23vloleun6/img-data.zip?dl=0)
 2. Test datasets (NumPy) with ground truth [[Data]](https://www.dropbox.com/sh/ea4q6ymx7nyeg17/AAD6lqPcbtKOVb2aouBhcD3wa?dl=0)
-3. Ground truth and images from three subvolumes [Data] (https://www.dropbox.com/s/040dsxyg5j165rv/Xbrain-GroundTruth.zip?dl=0)
+3. Ground truth and images from three subvolumes [Data](https://www.dropbox.com/s/040dsxyg5j165rv/Xbrain-GroundTruth.zip?dl=0)
 
 ----------------------------------------------------
 
