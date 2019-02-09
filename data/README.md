@@ -16,9 +16,8 @@ If you have any questions, please contact Eva Dyer at evadyer{at}gatech{dot}edu.
 * The spatial resolution is 0.65 um isotropic (each voxel = 0.65x0.65x0.65 um^3).
 
 ## What's available ##
-* You can download the full dataset from DropBox (13.4 GB) [[Link to Full Dataset]](https://www.dropbox.com/s/u1z604sgtty5kbh/original_img_data_0pt65microniso.nrrd?dl=0)
-
-* The annotated subvolumes are located here [[Link to Subvolumes and Annotations]](https://www.dropbox.com/sh/hu9e6hm2hvfna67/AADtG-ICqkEa0962pVSwrXBua?dl=0)
+* __Download the full dataset__ (13.4 GB) [[Link to Full Dataset]](https://www.dropbox.com/s/u1z604sgtty5kbh/original_img_data_0pt65microniso.nrrd?dl=0)
+* __Download annotated subvolumes from four regions in the sample__ (269 MB) [[Link to Annotations]](https://www.dropbox.com/sh/hu9e6hm2hvfna67/AADtG-ICqkEa0962pVSwrXBua?dl=0)
    - V0, V1, V2, V3 are all different (non-overlapping) subvolumes that were selected within an unsectioned cubic mm volume of mouse cortex.
    - V1 is the largest annotated volume (300 x 300 x 100 pixels) and currently the only volume that we have full (dense) reconstructions of cells and vessels.
    - V0 is a smaller cube in the middle of V1 for which we have two annotations from different annotators (A1 and A2) combined to produce a dense segmentation of cells and blood vessels.
