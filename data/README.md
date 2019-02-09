@@ -5,7 +5,7 @@ This repo contains manually annotated volumes of 3D X-ray microtomography data. 
 ***
 If you use any of the datasets contained in this repository, please cite the following paper:
 
-__Dyer, Eva L., et al. "Quantifying mesoscale neuroanatomy using X-ray microtomography." eNeuro, 4(5)ENEURO.0195-17.2017. [Paper](http://www.eneuro.org/content/4/5/ENEURO.0195-17.2017)__
+__Dyer, Eva L., et al. "Quantifying mesoscale neuroanatomy using X-ray microtomography." eNeuro, 4(5)ENEURO.0195-17.2017. [[Link to Paper]](http://www.eneuro.org/content/4/5/ENEURO.0195-17.2017)__
 
 ***
 If you have any questions, please contact Eva Dyer at evadyer{at}gatech{dot}edu.
