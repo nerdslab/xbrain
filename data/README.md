@@ -17,13 +17,17 @@ If you have any questions, please contact Eva Dyer at evadyer{at}gatech{dot}edu.
 
 ## What's available ##
 * __Download the full dataset (TIFF stack)__ (2.2 GB) [[Link to Full Dataset]](https://www.dropbox.com/s/1fvjih9mvvfdaq6/proj4_masked_390_2014.zip?dl=0)
-![alt text](samples/V1-img.PNG?raw=true "V1")
+![alt text](samples/full-data-image.PNG?raw=true "Full-Dataset")
 
 * __Download annotated subvolumes from four regions in the sample__ (269 MB) [[Link to Annotations]](https://www.dropbox.com/sh/hu9e6hm2hvfna67/AADtG-ICqkEa0962pVSwrXBua?dl=0)
    - V1, V2, V3 are all different (non-overlapping) subvolumes that were selected within an unsectioned cubic mm volume of mouse cortex.
    - V1 is the largest annotated volume (300 x 300 x 100 pixels) and currently the only volume that we have full (dense) reconstructions of cells and vessels.
+![alt text](samples/V1-img.PNG?raw=true "V1")
    - V0 is a smaller cube in the middle of V1 for which we have two annotations from different annotators (A1 and A2) combined to produce a dense segmentation of cells and blood vessels.
    - V2 can be used as a small test set for cell detection algorithms (dense annotation of cell bodies, some sparse annotations of vessels).
+![alt text](samples/V2-img.PNG?raw=true "V2")
    - V3 was the final held out test set that we used to evaluate our cell detection methods (only cell centroids, not full cell bodies).
+![alt text](samples/V3-img.PNG?raw=true "V3")
    - V4 is a subvolume that is located near the bottom of layer 6 and reveals myelinated axons in the corpus callosum traversing the subvolume.
+![alt text](samples/V4-img.PNG?raw=true "V4")
 ***
