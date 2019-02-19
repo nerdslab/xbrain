@@ -16,6 +16,7 @@ If you have any questions, please contact Eva Dyer at evadyer{at}gatech{dot}edu.
 * The spatial resolution is 0.65 um isotropic (each voxel = 0.65x0.65x0.65 um^3).
 
 ## What's available ##
+Note: sample images from each dataset are shown below each description.
 * __Download the full dataset (TIFF stack)__ (2.2 GB) [[Link to Full Dataset]](https://www.dropbox.com/s/1fvjih9mvvfdaq6/proj4_masked_390_2014.zip?dl=0)
 ![alt text](samples/full-data-image.PNG?raw=true "Full-Dataset")
 
