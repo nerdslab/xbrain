@@ -1,6 +1,6 @@
 # Image Data and Annotated Volumes #
 
-This repo contains manually annotated volumes of 3D X-ray microtomography data. All of the data volumes and annotations are saved as nrrd or nii files, both of which can be opened in Fiji and converted to a wide range of file formats. You can also open nrrd/nii files in Python with the use of the pynrrd package.
+This repo contains manually annotated volumes of 3D X-ray microtomography data. All of the data volumes and annotations are saved as nrrd or nii files, both of which can be opened in Fiji and converted to a wide range of file formats. You can also open nrrd/nii files in Python with the use of the pynrrd and nibabel packages.
 
 ***
 If you use any of the datasets contained in this repository, please cite the following paper:
