@@ -17,7 +17,7 @@ If you have any questions, please contact Eva Dyer at evadyer{at}gatech{dot}edu.
 
 ## What's available ##
 * __Download the full dataset (TIFF stack)__ (2.2 GB) [[Link to Full Dataset]](https://www.dropbox.com/s/1fvjih9mvvfdaq6/proj4_masked_390_2014.zip?dl=0)
-![alt text](relative/xbrain/data/samples/V1-img.PNG)
+![alt text](relative/xbrain/data/samples/V1-img.PNG?raw=true "V1")
 
 * __Download annotated subvolumes from four regions in the sample__ (269 MB) [[Link to Annotations]](https://www.dropbox.com/sh/hu9e6hm2hvfna67/AADtG-ICqkEa0962pVSwrXBua?dl=0)
    - V1, V2, V3 are all different (non-overlapping) subvolumes that were selected within an unsectioned cubic mm volume of mouse cortex.
